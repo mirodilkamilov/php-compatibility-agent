@@ -1,8 +1,9 @@
 package dev.mirodil.models.rules;
 
-import dev.mirodil.models.BehaviourChange;
-import dev.mirodil.models.IssueCategory;
 import dev.mirodil.models.PhpVersion;
+import dev.mirodil.models.migration_changes.BehaviourChange;
+import dev.mirodil.models.migration_changes.IssueCategory;
+import dev.mirodil.models.static_analyzer.AnalyzedCode;
 
 public class AssertionBehaviourChangeRule extends BehaviourChange {
     public AssertionBehaviourChangeRule(PhpVersion phpTargetVersion, IssueCategory issueCategory, String key, String description, String related) {
@@ -10,7 +11,7 @@ public class AssertionBehaviourChangeRule extends BehaviourChange {
     }
 
     @Override
-    public boolean applies(String analyzedCode) {
+    public boolean applies(AnalyzedCode analyzedCode) {
         return false;
     }
 }

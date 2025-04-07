@@ -1,4 +1,4 @@
-package dev.mirodil.models;
+package dev.mirodil.models.migration_changes;
 
 public enum IssueCategory {
     RESERVED_KEYWORD,

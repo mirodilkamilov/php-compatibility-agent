@@ -2,7 +2,8 @@ package dev.mirodil.serializers;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dev.mirodil.models.*;
+import dev.mirodil.models.PhpVersion;
+import dev.mirodil.models.migration_changes.*;
 import dev.mirodil.utils.DataUtil;
 
 import java.io.File;
@@ -12,14 +13,14 @@ import java.util.List;
 
 public class BreakingChangesSerializer {
 
-    public static List<BreakingChange> load(String filePath) throws IOException {
+    public static List<BreakingChange> load(PhpVersion phpTargetVersion) throws IOException {
         List<BreakingChange> breakingChanges = new ArrayList<>();
-
         ObjectMapper mapper = new ObjectMapper();
+        String filePath = phpTargetVersion.name().toLowerCase() + "-breaking-changes.json";
+
         try {
             File file = new File(filePath);
             JsonNode root = mapper.readTree(file);
-            PhpVersion phpTargetVersion = DataUtil.extractPhpVersionFromFileName(file.getName());
 
             breakingChanges.addAll(parseReservedKeywords(root.get("reserved_keywords"), phpTargetVersion));
             breakingChanges.addAll(parseRemovedFunctions(root.get("removed_functions"), phpTargetVersion));

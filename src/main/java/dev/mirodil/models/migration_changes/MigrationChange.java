@@ -1,4 +1,7 @@
-package dev.mirodil.models;
+package dev.mirodil.models.migration_changes;
+
+import dev.mirodil.models.PhpVersion;
+import dev.mirodil.models.static_analyzer.AnalyzedCode;
 
 public abstract class MigrationChange {
     protected final PhpVersion phpTargetVersion;
@@ -15,7 +18,7 @@ public abstract class MigrationChange {
         this.related = related;
     }
 
-    public abstract boolean applies(String analyzedCode); // TODO: create AnalyzedCode class
+    public abstract boolean applies(AnalyzedCode analyzedCode);
 
     public PhpVersion getPhpTargetVersion() {
         return phpTargetVersion;

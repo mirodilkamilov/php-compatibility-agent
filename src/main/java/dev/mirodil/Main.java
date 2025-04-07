@@ -3,6 +3,7 @@ package dev.mirodil;
 import dev.mirodil.models.PhpVersion;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -51,7 +52,12 @@ public class Main {
             return;
         }
         Agent agent = new Agent(phpTargetVersion);
-        agent.analyze(phpFile);
+        try {
+            String report = agent.analyze(phpFile);
+            System.out.println(report);
+        } catch (IOException e) {
+            System.err.println("Error: Agent cannot load relevant PHP version upgrade knowledge base.");
+        }
     }
 
     private static boolean isFileAttached(String[] args) {

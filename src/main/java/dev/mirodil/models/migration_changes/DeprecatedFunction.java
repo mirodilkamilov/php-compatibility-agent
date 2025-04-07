@@ -1,4 +1,7 @@
-package dev.mirodil.models;
+package dev.mirodil.models.migration_changes;
+
+import dev.mirodil.models.PhpVersion;
+import dev.mirodil.models.static_analyzer.AnalyzedCode;
 
 public class DeprecatedFunction extends DeprecatedFeature {
     public DeprecatedFunction(PhpVersion phpTargetVersion, IssueCategory issueCategory, String key, String description, String related) {
@@ -6,7 +9,7 @@ public class DeprecatedFunction extends DeprecatedFeature {
     }
 
     @Override
-    public boolean applies(String analyzedCode) {
+    public boolean applies(AnalyzedCode analyzedCode) {
         return false;
     }
 }
