@@ -1,35 +1,65 @@
 package dev.mirodil;
 
-import dev.mirodil.models.BreakingChange;
-import dev.mirodil.models.DeprecatedFeature;
-import dev.mirodil.serializers.BreakingChangesSerializer;
-import dev.mirodil.serializers.DeprecatedFeaturesSerializer;
+import dev.mirodil.models.PhpVersion;
 
-import java.io.IOException;
-import java.util.List;
+import java.io.File;
+import java.util.NoSuchElementException;
+import java.util.Scanner;
+
+import static dev.mirodil.utils.AgentUtil.*;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
-        String filePath = "/home/optimus/IdeaProjects/php-compatibility-agent/src/main/resources/data/php_8_0-breaking-changes.json";
-        List<BreakingChange> breakingChanges = BreakingChangesSerializer.load(filePath);
+    private static final String DEFAULT_PHP_FILE = "src/main/resources/data/hello-world.php";
 
-        System.out.println("Loaded " + breakingChanges.size() + " breaking changes:\n");
-        for (BreakingChange change : breakingChanges) {
-            System.out.println("- " + change.getClass().getSimpleName() + ": " + change.getKey());
-            System.out.println("  Description: " + change.getDescription());
-            System.out.println("  Related: " + change.getRelated());
-            System.out.println();
+    public static void main(String[] args) {
+        String phpFilePath = DEFAULT_PHP_FILE;
+        if (isFileAttached(args)) {
+            for (int i = 0; i < args.length; i++) {
+                if ("-f".equals(args[i]) && i + 1 < args.length) {
+                    phpFilePath = args[i + 1];
+                    i++;
+                }
+            }
+        } else {
+            System.out.println("Info: PHP file is not attached. Using default one in " + phpFilePath);
         }
 
-        filePath = "/home/optimus/IdeaProjects/php-compatibility-agent/src/main/resources/data/php_8_0-deprecated-features.json";
-        List<DeprecatedFeature> deprecatedFeatures = DeprecatedFeaturesSerializer.load(filePath);
-
-        System.out.println("Loaded " + deprecatedFeatures.size() + " deprecated features:\n");
-        for (DeprecatedFeature change : deprecatedFeatures) {
-            System.out.println("- " + change.getClass().getSimpleName() + ": " + change.getKey());
-            System.out.println("  Description: " + change.getDescription());
-            System.out.println("  Related: " + change.getRelated());
-            System.out.println();
+        File phpFile = new File(phpFilePath);
+        if (!isFileExists(phpFile)) {
+            System.err.println("Error: Attached file not found - " + phpFilePath);
+            return;
         }
+        if (!isValidPhpFile(phpFile)) {
+            System.err.println("Error: Invalid PHP file - " + phpFilePath);
+            return;
+        }
+
+        System.out.println("Info: PHP file attached to agent: " + phpFile.getAbsolutePath());
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Info: Agent is ready for conversation. Start it by saying: \"Check if this PHP code is compatible with PHP 8.0\"");
+        String userMessage = scanner.nextLine();
+        if (!isValidUserMessage(userMessage)) {
+            System.err.println("Error: Not supported user message.");
+            return;
+        }
+
+        PhpVersion phpTargetVersion;
+        try {
+            phpTargetVersion = extractPhpVersionFromUserMessage(userMessage);
+        } catch (NoSuchElementException e) {
+            System.err.println("Error: Agent doesn't support requested PHP version. Supported PHP versions: " + PhpVersion.supportedPhpVersions());
+            return;
+        }
+        Agent agent = new Agent(phpTargetVersion);
+        agent.analyze(phpFile);
+    }
+
+    private static boolean isFileAttached(String[] args) {
+        for (String arg : args) {
+            if ("-f".equals(arg)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
