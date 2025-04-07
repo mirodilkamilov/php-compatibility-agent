@@ -1,0 +1,37 @@
+{
+  "deprecated_function": [
+    {
+      "key": "call_user_func",
+      "description": "Callables that are not accepted by the $callable() syntax\n    (but are accepted by call_user_func) are deprecated.\n\n    In particular:\n    \n     \"self::method\"\n     \"parent::method\"\n     \"static::method\"\n     [\"self\", \"method\"]\n     [\"parent\", \"method\"]\n     [\"static\", \"method\"]\n     [\"Foo\", \"Bar::method\"]\n     [new Foo, \"Bar::method\"]\n    \n\n    This does not affect normal method callables such as\n    \"A::method\" or [\"A\", \"method\"].",
+      "related": "PHP Core"
+    },
+    {
+      "key": "convert_uuencode",
+      "description": "Usage of the QPrint, Base64,\n   Uuencode, and HTML-ENTITIES\n   'text encodings' is deprecated for all MBString functions.\n\n   Unlike all the other text encodings supported by MBString,\n   these do not encode a sequence of Unicode codepoints, but rather a sequence of raw bytes.\n   It is not clear what the correct return values for most MBString functions\n   should be when one of these non-encodings is specified.\n   Moreover, PHP has separate, built-in implementations of all of them;\n   for example, UUencoded data can be handled using\n   convert_uuencode/convert_uudecode.",
+      "related": "MBString"
+    },
+    {
+      "key": "utf8_encode",
+      "description": "utf8_encode and utf8_decode\n   have been deprecated.",
+      "related": "Standard"
+    }
+  ],
+  "removed_syntax": [],
+  "others": [
+    {
+      "key": null,
+      "description": "The creation of dynamic properties is deprecated, unless the class opts in by\n    using the #[\\AllowDynamicProperties] attribute.\n    stdClass allows dynamic properties.\n    Usage of the __get()/__set() magic methods is not affected by this change.\n    A dynamic properties deprecation warning can be addressed by:\n\n    \n     Declaring the property (preferred).\n     \n      Adding the #[\\AllowDynamicProperties] attribute to the class\n      (which also applies to all child classes).\n     \n     \n      Using a WeakMap if additional data needs to be\n      associated with an object which one does not own.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "The \"${var}\" and \"${expr}\" style of string\n    interpolation is deprecated.\n    Use \"$var\"/\"{$var}\" and \"{${expr}}\", respectively.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "The internal SplFileInfo::_bad_state_ex method\n   has been deprecated.",
+      "related": "SPL"
+    }
+  ]
+}

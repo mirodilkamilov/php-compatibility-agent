@@ -1,0 +1,92 @@
+{
+  "deprecated_function": [
+    {
+      "key": "str_increment",
+      "description": "Using the increment\n    operator (++) on empty, non-numeric,\n    or non-alphanumeric strings is now deprecated.\n    Moreover, incrementing non-numeric strings is soft deprecated.\n    That means no E_DEPRECATED diagnostic is emitted,\n    but this feature should not be used when producing new code.\n    The new str_increment function should be used instead.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "get_class",
+      "description": "Calling get_class and get_parent_class\n    without arguments is now deprecated.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "dba_fetch",
+      "description": "Calling dba_fetch with $dba as\n   the 3rd argument is now deprecated.",
+      "related": "DBA"
+    },
+    {
+      "key": "ldap_connect",
+      "description": "Calling ldap_connect with separate\n   $hostname and $port is\n   deprecated.",
+      "related": "LDAP"
+    },
+    {
+      "key": "mb_strimwidth",
+      "description": "Passing a negative $width to\n   mb_strimwidth is now deprecated.",
+      "related": "MBString"
+    },
+    {
+      "key": "assert_options",
+      "description": "The assert_options function is now deprecated.",
+      "related": "Standard"
+    }
+  ],
+  "removed_syntax": [],
+  "others": [
+    {
+      "key": null,
+      "description": "Using the decrement\n    operator (--) on empty or non-numeric strings is now deprecated.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "Calling FFI::cast, FFI::new,\n   and FFI::type statically is now deprecated.",
+      "related": "FFI"
+    },
+    {
+      "key": null,
+      "description": "The U_MULTIPLE_DECIMAL_SEP*E*RATORS\n   constant had been deprecated, using the\n   U_MULTIPLE_DECIMAL_SEP*A*RATORS\n   constant instead is recommended.",
+      "related": "Intl"
+    },
+    {
+      "key": null,
+      "description": "The NumberFormatter::TYPE_CURRENCY constant has been deprecated.",
+      "related": "Intl"
+    },
+    {
+      "key": null,
+      "description": "Calling Phar::setStub with a\n   resource and a $length\n   is now deprecated. Such calls should be replaced by:\n   $phar->setStub(stream_get_contents($resource));",
+      "related": "Phar"
+    },
+    {
+      "key": null,
+      "description": "The MT_RAND_PHP Mt19937 variant is deprecated.",
+      "related": "Random"
+    },
+    {
+      "key": null,
+      "description": "Calling ReflectionProperty::setValue with only one\n   parameter is deprecated.\n   To set static properties, pass  as the first parameter.",
+      "related": "Reflection"
+    },
+    {
+      "key": null,
+      "description": "The ASSERT_ACTIVE, ASSERT_BAIL,\n   ASSERT_CALLBACK, ASSERT_EXCEPTION,\n   and ASSERT_WARNING constants have been deprecated.",
+      "related": "Standard"
+    },
+    {
+      "key": null,
+      "description": "The assert.* INI settings have been deprecated.\n   See the\n   Changes to INI File Handling\n   page for further details.",
+      "related": "Standard"
+    },
+    {
+      "key": null,
+      "description": "Using exceptions is now preferred, warnings will be removed in the future.\n   Calling SQLite3::enableExceptions(false) will trigger a\n   deprecation warning in this version.",
+      "related": "SQLite3"
+    },
+    {
+      "key": null,
+      "description": "The ZipArchive::FL_RECOMPRESS constant is deprecated\n   and will be removed in a future version of libzip.",
+      "related": "Zip"
+    }
+  ]
+}

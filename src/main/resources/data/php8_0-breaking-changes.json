@@ -1,0 +1,982 @@
+{
+  "reserved_keywords": [
+    {
+      "key": "match",
+      "description": "match is now a reserved keyword.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "mixed",
+      "description": "mixed is now a reserved word, so it cannot be used to name a class, interface or trait, and is also prohibited from being used in namespaces.",
+      "related": "PHP Core"
+    }
+  ],
+  "removed_functions": [
+    {
+      "key": "is_callable",
+      "description": "The ability to call non-static methods statically has been removed. Thus\n      is_callable will fail when checking for a non-static method with a classname\n      (must check with an object instance).",
+      "related": "PHP Core"
+    },
+    {
+      "key": "error_get_last",
+      "description": "The track_errors ini directive has been removed. This\n       means that php_errormsg is no longer available. The\n       error_get_last function may be used instead.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "define",
+      "description": "The ability to define case-insensitive constants has been removed. The third argument to\n      define may no longer be true.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "create_function",
+      "description": "create_function has been removed. Anonymous functions may be used instead.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "each",
+      "description": "each has been removed.  or ArrayIterator\n      should be used instead.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "array_key_exists",
+      "description": "The ability to use array_key_exists with objects has been removed.\n      isset or property_exists may be used instead.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "com_load_typelib",
+      "description": "The ability to import case-insensitive constants from type libraries has been removed.\n   The second argument to com_load_typelib may no longer be false;\n   com.autoregister_casesensitive\n   may no longer be disabled; case-insensitive markers in\n   com.typelib_file are ignored.",
+      "related": "COM and .Net (Windows)"
+    },
+    {
+      "key": "read_exif_data",
+      "description": "read_exif_data has been removed; exif_read_data\n   should be used instead.",
+      "related": "Exif"
+    },
+    {
+      "key": "image2wbmp",
+      "description": "The deprecated function image2wbmp has been removed.",
+      "related": "GD"
+    },
+    {
+      "key": "gmp_random",
+      "description": "gmp_random has been removed. One of gmp_random_range or\n   gmp_random_bits should be used instead.",
+      "related": "GMP"
+    },
+    {
+      "key": "imap_headerinfo",
+      "description": "The unused default_host argument of imap_headerinfo\n     has been removed.",
+      "related": "IMAP"
+    },
+    {
+      "key": "imap_header",
+      "description": "The imap_header function which is an alias of\n     imap_headerinfo has been removed.",
+      "related": "IMAP"
+    },
+    {
+      "key": "mb_ereg_replace",
+      "description": "The e modifier for mb_ereg_replace has been removed.\n     mb_ereg_replace_callback should be used instead.",
+      "related": "MBString"
+    },
+    {
+      "key": "mb_decode_numericentity",
+      "description": "The is_hex parameter, which was not used internally, has been removed from\n     mb_decode_numericentity.",
+      "related": "MBString"
+    },
+    {
+      "key": "mb_strrpos",
+      "description": "The legacy behavior of passing the encoding as the third argument instead of an offset for the\n     mb_strrpos function has been removed; an explicit 0\n     offset with the encoding should be provided as the fourth argument instead.",
+      "related": "MBString"
+    },
+    {
+      "key": "crypt",
+      "description": "The deprecated DES fallback in crypt has been removed. If an unknown salt\n     format is passed to crypt, the function will fail with *0\n     instead of falling back to a weak DES hash now.",
+      "related": "Standard Library"
+    },
+    {
+      "key": "gzgetss",
+      "description": "gzgetss has been removed.",
+      "related": "Zlib"
+    }
+  ],
+  "behavior_changes": [
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "The default error_reporting level is now E_ALL. Previously it excluded\n      E_NOTICE and E_DEPRECATED.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "display_startup_errors is now enabled by\n      default.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "Using parent inside a class that has no parent will now result in a fatal\n      compile-time error.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "#[ is no longer interpreted as the start of a comment,\n      as this syntax is now used for attributes.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "Inheritance errors due to incompatible method signatures (LSP violations) will now always\n      generate a fatal error. Previously a warning was generated in some cases.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "<?php\necho \"Sum: \" . $a + $b;\n// was previously interpreted as:\necho (\"Sum: \" . $a) + $b;\n// is now interpreted as:\necho \"Sum:\" . ($a + $b);\n?>",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "A number of warnings have been converted into Error exceptions:",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "Attempting to write to a property of a non-object. Previously this\n        implicitly created an stdClass object for null, false and empty strings.\n       \n       \n        Attempting to append an element to an array for which the PHP_INT_MAX key\n        is already used.\n       \n       \n        Attempting to use an invalid type (array or object) as an array key or\n        string offset.\n       \n       Attempting to write to an array index of a scalar value.\n       Attempting to unpack a non-array/Traversable.\n       \n        Attempting to access unqualified constants which are undefined.\n        Previously, unqualified constant accesses resulted in a warning and were interpreted as strings.\n       \n       \n        Passing the wrong number of arguments to a non-variadic built-in\n        function will throw an ArgumentCountError.\n       \n       \n        Passing invalid countable types to count will throw\n        a TypeError.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "A number of notices have been converted into warnings:",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "Attempting to assign multiple bytes to a string offset will now emit a warning.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "Unexpected characters in source files (such as NUL bytes outside of strings) will now result in a\n      ParseError exception instead of a compile warning.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "The compile time fatal error \"Only variables can be passed by reference\" has been delayed until\n      runtime, and converted into an \"Argument cannot be passed by reference\"\n      Error exception.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "The generated name for anonymous classes has changed. It will now include the name of the first\n      parent or interface:",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "If both T1::func() and T2::func() exist, this code was previously\n      silently accepted, and func was assumed to refer to T1::func. Now it will generate a\n      fatal error instead, and either T1::func or T2::func needs to be\n      written explicitly.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "The signature of abstract methods defined in traits is now checked against the implementing class\n      method:",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "Disabled functions are now treated exactly like non-existent functions. Calling a disabled\n      function will report it as unknown, and redefining a disabled function is now possible.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "The arithmetic and bitwise operators +, -,\n      *, /, **, %,\n      , , ,\n      |, ^, ~, ++,\n      -- will now consistently throw a TypeError when one of\n      the operands is an ,  or non-overloaded . The only exception to this is\n      the array + array merge operation, which remains supported.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "Float to string casting will now always behave locale-independently.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "<?php\nsetlocale(LC_ALL, \"de_DE\");\n$f = 3.14;\necho $f, \"\\n\";\n// Previously: 3,14\n// Now:        3.14\n?>",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "Applying the final modifier on a private method will now produce a warning unless that method is\n      the constructor.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "Namespaced names can no longer contain whitespace: While Foo\\Bar will be recognized\n      as a namespaced name, Foo \\ Bar will not. Conversely, reserved keywords are now\n      permitted as namespace segments, which may also change the interpretation of code:\n      new\\x is now the same as constant('new\\x'), not\n      new \\x().",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "Numeric string handling has been altered to be more intuitive and less error-prone. Trailing\n      whitespace is now allowed in numeric strings for consistency with how leading whitespace is\n      treated. This mostly affects:",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "The concept of a \"leading-numeric string\" has been mostly dropped; the cases where this remains\n      exist in order to ease migration. Strings which emitted an E_NOTICE \"A non\n      well-formed numeric value encountered\" will now emit an E_WARNING \"A\n      non-numeric value encountered\" and all strings which emitted an E_WARNING \"A\n      non-numeric value encountered\" will now throw a\n      TypeError. This mostly affects:",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "Magic Methods will now have their arguments and return types checked if they have them declared.\n      The signatures should match the following list:",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "call_user_func_array array keys will now be interpreted as parameter names,\n      instead of being silently ignored.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "curl_init will now return a CurlHandle object rather\n      than a . The curl_close function no longer has an effect,\n      instead the CurlHandle instance is automatically destroyed if it is no\n      longer referenced.",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "curl_multi_init will now return a CurlMultiHandle\n      object rather than a . The curl_multi_close function no\n      longer has an effect, instead the CurlMultiHandle instance is\n      automatically destroyed if it is no longer referenced.",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "curl_share_init will now return a CurlShareHandle\n      object rather than a . The curl_share_close function no\n      longer has an effect, instead the CurlShareHandle instance is\n      automatically destroyed if it is no longer referenced.",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "enchant_broker_init will now return an EnchantBroker\n     object rather than a .",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "enchant_broker_request_dict and\n     enchant_broker_request_pwl_dict will now return an\n     EnchantDictionary object rather than a .",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "openssl_x509_read and openssl_csr_sign will now return\n     an OpenSSLCertificate object rather than a .\n     The openssl_x509_free function is deprecated and no longer has an effect,\n     instead the OpenSSLCertificate instance is automatically destroyed if it\n     is no longer referenced.",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "openssl_csr_new will now return an\n     OpenSSLCertificateSigningRequest object rather than a .",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "openssl_pkey_new will now return an\n     OpenSSLAsymmetricKey object rather than a .\n     The openssl_pkey_free function is deprecated and no longer has an effect,\n     instead the OpenSSLAsymmetricKey instance is automatically destroyed if it\n     is no longer referenced.",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "shmop_open will now return a Shmop object rather than\n     a . The shmop_close function no longer has an effect, and is\n     deprecated; instead the Shmop instance is automatically destroyed if it is\n     no longer referenced.",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "socket_create, socket_create_listen,\n     socket_accept, socket_import_stream,\n     socket_addrinfo_connect, socket_addrinfo_bind, and\n     socket_wsaprotocol_info_import will now return a\n     Socket object rather than a .\n     socket_addrinfo_lookup will now return an array of\n     AddressInfo objects rather than s.",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "msg_get_queue will now return an SysvMessageQueue\n     object rather than a .",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "sem_get will now return an SysvSemaphore object\n     rather than a .",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "shm_attach will now return an SysvSharedMemory object\n     rather than a .",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "xml_parser_create and xml_parser_create_ns will now\n     return an XMLParser object rather than a . The\n     xml_parser_free function no longer has an effect, instead the XMLParser\n     instance is automatically destroyed if it is no longer referenced.",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "inflate_init will now return an InflateContext object\n     rather than a .",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "deflate_init will now return a DeflateContext object\n     rather than a .",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "mktime and gmmktime now require at least one\n   argument. time can be used to get the current timestamp.",
+      "related": "Date and Time"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "enchant_broker_list_dicts, enchant_broker_describe and\n     enchant_dict_suggest will now return an empty array instead of .",
+      "related": "Enchant"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "A non-string pattern argument to mb_ereg_replace will now be interpreted as\n     a string instead of an ASCII codepoint. The previous behavior may be restored with an explicit\n     call to chr.",
+      "related": "MBString"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "mb_ereg and mb_eregi will now return boolean true on\n     a successful match. Previously they returned integer 1 if\n     matches was not passed, or max(1, strlen($matches[0])) if\n     matches was passed.",
+      "related": "MBString"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "The OCI-Lob class is now called OCILob, and the\n     OCI-Collection class is now called OCICollection\n     for name compliance enforced by PHP 8 arginfo type annotation tooling.",
+      "related": "OCI8"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "When passing invalid escape sequences they are no longer interpreted as literals. This behavior\n   previously required the X modifier – which is now ignored.",
+      "related": "Regular Expressions (Perl-Compatible)"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "pg_fetch_all will now return an empty array instead of false for result\n     sets with zero rows.",
+      "related": "PostgreSQL"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "The ReflectionType::__toString method will now return a complete debug\n     representation of the type, and is no longer deprecated. In particular the result will include a\n     nullability indicator for nullable types. The format of the return value is not stable and may\n     change between PHP versions.",
+      "related": "Reflection"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "ReflectionMethod::isConstructor and\n     ReflectionMethod::isDestructor now also return true for\n     __construct() and\n     __destruct() methods of interfaces.\n     Previously, this would only be true for methods of classes and traits.",
+      "related": "Reflection"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "SplFileObject::seek now always seeks to the beginning of the line.\n     Previously, positions =1 sought to the beginning of the next line.",
+      "related": "Standard PHP Library (SPL)"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "SplHeap::compare now specifies a method signature. Inheriting classes\n     implementing this method will now have to use a compatible method signature.",
+      "related": "Standard PHP Library (SPL)"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "spl_autoload_register will now always throw a\n     TypeError on invalid arguments, therefore the second argument\n     do_throw is ignored and a notice will be emitted if it is set to false.",
+      "related": "Standard PHP Library (SPL)"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "SplFixedArray is now an IteratorAggregate\n     and not an Iterator.\n     SplFixedArray::rewind, SplFixedArray::current,\n     SplFixedArray::key, SplFixedArray::next, and\n     SplFixedArray::valid have been removed. In their place,\n     SplFixedArray::getIterator has been added. Any code which uses explicit\n     iteration over SplFixedArray must now obtain an\n     Iterator through\n     SplFixedArray::getIterator. This means that\n     SplFixedArray is now safe to use in nested loops.",
+      "related": "Standard PHP Library (SPL)"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "The needle argument of strpos,\n     strrpos, stripos, strripos,\n     strstr, strchr, strrchr, and\n     stristr will now always be interpreted as a string. Previously non-string\n     needles were interpreted as an ASCII code point. An explicit call to chr can\n     be used to restore the previous behavior.",
+      "related": "Standard Library"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "The args argument of vsprintf,\n     vfprintf, and vprintf must now be an array. Previously\n     any type was accepted.",
+      "related": "Standard Library"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "The quotemeta function will now return an empty string if an empty string\n     was passed. Previously false was returned.",
+      "related": "Standard Library"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "parse_url will now distinguish absent and empty queries and fragments:",
+      "related": "Standard Library"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "http://example.com/foo → query = null, fragment = null\n      http://example.com/foo? → query = \"\",   fragment = null\n      http://example.com/foo# → query = null, fragment = \"\"\n      http://example.com/foo?# → query = \"\",   fragment = \"\"\n     \n      Previously all cases resulted in query and fragment being .",
+      "related": "Standard Library"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "var_dump and debug_zval_dump will now print\n     floating-point numbers using serialize_precision\n     rather than precision. In a default configuration, this\n     means that floating-point numbers are now printed with full accuracy by these debugging\n     functions.",
+      "related": "Standard Library"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "If the array returned by __sleep() contains non-existing\n     properties, these are now silently ignored. Previously, such properties would have been\n     serialized as if they had the value .",
+      "related": "Standard Library"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "The default locale on startup is now always \"C\". No locales are inherited from\n     the environment by default. Previously, LC_ALL was set to\n     \"C\", while LC_CTYPE was inherited from the environment.\n     However, some functions did not respect the inherited locale without an explicit\n     setlocale call. An explicit setlocale call is now\n     always required if a locale component should be changed from the default.",
+      "related": "Standard Library"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "Specifying out of range rounds for SHA256/SHA512 crypt will now fail with\n     *0 instead of clamping to the closest limit. This matches glibc behavior.",
+      "related": "Standard Library"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "Any functions accepting callbacks that are not explicitly specified to accept parameters by\n     reference will now warn if a callback with reference parameters is used. Examples include\n     array_filter and array_reduce. This was already the\n     case for most, but not all, functions previously.",
+      "related": "Standard Library"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "substr, mb_substr, iconv_substr and\n    grapheme_substr now consistently clamp out-of-bounds offsets to the string\n    boundary. Previously, false was returned instead of the empty string in some cases.",
+      "related": "Standard Library"
+    }
+  ],
+  "removed_syntax": [
+    {
+      "key": "unknown",
+      "description": "The ability to unbind this from closures that were created from a method,\n      using Closure::fromCallable or\n      ReflectionMethod::getClosure, has been removed.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "unknown",
+      "description": "Support for deprecated curly braces for offset access has been removed.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "unknown",
+      "description": "The deprecated constant INTL_IDNA_VARIANT_2003 has been removed.",
+      "related": "Internationalization Functions"
+    },
+    {
+      "key": "unknown",
+      "description": "The deprecated Normalizer::NONE constant has been removed.",
+      "related": "Internationalization Functions"
+    },
+    {
+      "key": "unknown",
+      "description": "SplFileObject::fgetss has been removed.",
+      "related": "Standard PHP Library (SPL)"
+    },
+    {
+      "key": "unknown",
+      "description": "The string.strip_tags filter has been removed.",
+      "related": "Standard Library"
+    },
+    {
+      "key": "unknown",
+      "description": "FILTER_SANITIZE_MAGIC_QUOTES has been removed.",
+      "related": "Standard Library"
+    },
+    {
+      "key": "unknown",
+      "description": "ZipArchive::OPSYS_Z_CPM has been removed (this name was a typo). Use\n   ZipArchive::OPSYS_CPM instead.",
+      "related": "Zip"
+    }
+  ],
+  "others": [
+    {
+      "key": null,
+      "description": "Non-strict comparisons between numbers and non-numeric strings now work by casting the number to\n    string and comparing the strings. Comparisons between numbers and numeric strings continue to\n    work as before. Notably, this means that 0 == \"not-a-number\" is considered false\n    now.\n    \n     \n      \n       \n        Comparison\n        Before\n        After\n       \n      \n      \n       \n        0 == \"0\"\n        true\n        true\n       \n       \n        0 == \"0.0\"\n        true\n        true\n       \n       \n        0 == \"foo\"\n        true\n        false\n       \n       \n        0 == \"\"\n        true\n        false\n       \n       \n        42 == \"   42\"\n        true\n        true\n       \n       \n        42 == \"42foo\"\n        true\n        false",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "Assertion failures now throw by default. If the old behavior is desired,\n      assert.exception=0 can be set in the INI settings.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "Methods with the same name as the class are no longer interpreted as constructors. The\n      __construct() method should be used instead.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "The (real) and (unset) casts have been removed.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "The ability to specify an autoloader using an __autoload function has been\n      removed. spl_autoload_register should be used instead.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "The errcontext argument will no longer be passed to custom error handlers\n      set with set_error_handler.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "The ability to unbind this from proper closures that contain uses of\n      this has also been removed.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "The behavior of array_key_exists regarding the type of the\n      key parameter has been made consistent with isset and\n      normal array access. All key types now use the usual coercions and array/object keys throw a\n      TypeError.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "Any array that has a number n as its first numeric key will use\n      n+1 for its next implicit key, even if n is\n      negative.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "The @ operator will no longer silence fatal errors\n      (E_ERROR, E_CORE_ERROR,\n      E_COMPILE_ERROR, E_USER_ERROR,\n      E_RECOVERABLE_ERROR, E_PARSE). Error handlers that\n      expect error_reporting to be 0 when @ is used, should be\n      adjusted to use a mask check instead:",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "<?php\n// Replace\nfunction my_error_handler($err_no, $err_msg, $filename, $linenum) {\n    if (error_reporting() == 0) {\n        return false;\n    }\n    // ...\n}\n\n// With\nfunction my_error_handler($err_no, $err_msg, $filename, $linenum) {\n    if (!(error_reporting() & $err_no)) {\n        return false;\n    }\n    // ...\n}\n?>",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "Additionally, care should be taken that error messages are not displayed in production\n      environments, which can result in information leaks. Please ensure that\n      display_errors=Off is used in conjunction with error logging.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "The precedence of the concatenation operator has changed relative to bitshifts and addition as\n      well as subtraction.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "Arguments with a default value that resolves to  at runtime will no longer implicitly mark\n      the argument type as nullable. Either an explicit nullable type, or an explicit  default\n      value has to be used instead.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "<?php\n// Replace\nfunction test(int $arg = CONST_RESOLVING_TO_NULL) {}\n// With\nfunction test(?int $arg = CONST_RESOLVING_TO_NULL) {}\n// Or\nfunction test(int $arg = null) {}\n?>",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "Attempting to read an undefined variable.\n       Attempting to read an undefined property.\n       Attempting to read an undefined array key.\n       Attempting to read a property of a non-object.\n       Attempting to access an array index of a non-array.\n       Attempting to convert an array to string.\n       Attempting to use a resource as an array key.\n       Attempting to use null, a boolean, or a float as a string offset.\n       Attempting to read an out-of-bounds string offset.\n       Attempting to assign an empty string to a string offset.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "Uncaught exceptions now go through \"clean shutdown\", which means that destructors will be called\n      after an uncaught exception.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "Some \"Only variables should be passed by reference\" notices have been converted to \"Argument\n      cannot be passed by reference\" exception.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "<?php\nnew class extends ParentClass {};\n// -> ParentClass@anonymous\nnew class implements FirstInterface, SecondInterface {};\n// -> FirstInterface@anonymous\nnew class {};\n// -> class@anonymous\n?>",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "The name shown above is still followed by a NUL byte and a unique suffix.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "Non-absolute trait method references in trait alias adaptations are now required to be\n      unambiguous:",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "<?php\nclass X {\n    use T1, T2 {\n        func as otherFunc;\n    }\n    function func() {}\n}\n?>",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "<?php\ntrait MyTrait {\n    abstract private function neededByTrait(): string;\n}\n\nclass MyClass {\n    use MyTrait;\n\n    // Error, because of return type mismatch.\n    private function neededByTrait(): int { return 42; }\n}\n?>",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "data:// stream wrappers are no longer writable, which matches the documented\n      behavior.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "See printf, number_format and\n      NumberFormatter for ways to customize number formatting.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "<?php\n// Instead of:\n$array{0};\n$array{\"key\"};\n// Write:\n$array[0];\n$array[\"key\"];\n?>",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "If an object constructor exits, the object destructor will no longer be\n      called. This matches the behavior when the constructor throws.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "Nested ternaries now require explicit parentheses.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "debug_backtrace and Exception::getTrace will no\n      longer provide references to arguments. It will not be possible to change function arguments\n      through the backtrace.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "The is_numeric function\n       String-to-string comparisons\n       Type declarations\n       Increment and decrement operations",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "Arithmetic operations\n       Bitwise operations",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "This E_WARNING to TypeError change also affects the\n      E_WARNING \"Illegal string offset 'string'\" for illegal string offsets. The\n      behavior of explicit casts to int/float from strings has not been changed.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "__call(string $name, array $arguments): mixed\n       __callStatic(string $name, array $arguments): mixed\n       __clone(): void\n       __debugInfo(): ?array\n       __get(string $name): mixed\n       __invoke(mixed $arguments): mixed\n       __isset(string $name): bool\n       __serialize(): array\n       __set(string $name, mixed $value): void\n       __set_state(array $properties): object\n       __sleep(): array\n       __unserialize(array $data): void\n       __unset(string $name): void\n       __wakeup(): void",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "Declaring a function called assert() inside a namespace is\n      no longer allowed, and issues E_COMPILE_ERROR.\n      The assert function is subject to special handling by the engine,\n      which may lead to inconsistent behavior when defining a namespaced function with the same name.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "Several s have been migrated to s.\n   Return value checks using is_resource should be replaced with checks for false.",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": null,
+      "description": "The GD extension now uses GdImage objects as the underlying data structure\n     for images, rather than s.\n     The imagedestroy function no longer has an effect; instead the\n     GdImage instance is automatically destroyed if it is no longer referenced.",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": null,
+      "description": "The XMLWriter functions now accept and return, respectively,\n     XMLWriter objects instead of s.",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": null,
+      "description": "CURLOPT_POSTFIELDS no longer accepts objects as arrays. To\n   interpret an object as an array, perform an explicit (array) cast. The\n   same applies to other options accepting arrays as well.",
+      "related": "CURL"
+    },
+    {
+      "key": null,
+      "description": "Unimplemented classes from the DOM extension that had no behavior and contained test\n   data have been removed. These classes have also been removed in the latest version of\n   the DOM standard:",
+      "related": "DOM"
+    },
+    {
+      "key": null,
+      "description": "DOMNameList\n    DomImplementationList\n    DOMConfiguration\n    DomError\n    DomErrorHandler\n    DOMImplementationSource\n    DOMLocator\n    DOMUserDataHandler\n    DOMTypeInfo\n    DOMStringExtend",
+      "related": "DOM"
+    },
+    {
+      "key": null,
+      "description": "Unimplemented methods from the DOM extension that had no behavior have been removed:",
+      "related": "DOM"
+    },
+    {
+      "key": null,
+      "description": "DOMNamedNodeMap::setNamedItem\n    DOMNamedNodeMap::removeNamedItem\n    DOMNamedNodeMap::setNamedItemNS\n    DOMNamedNodeMap::removeNamedItemNS\n    DOMText::replaceWholeText\n    DOMNode::compareDocumentPosition\n    DOMNode::isEqualNode\n    DOMNode::getFeature\n    DOMNode::setUserData\n    DOMNode::getUserData\n    DOMDocument::renameNode",
+      "related": "DOM"
+    },
+    {
+      "key": null,
+      "description": "The FILTER_FLAG_SCHEME_REQUIRED and\n     FILTER_FLAG_HOST_REQUIRED flags for the\n     FILTER_VALIDATE_URL filter have been removed. The scheme\n     and host are (and have been) always required.",
+      "related": "Filter"
+    },
+    {
+      "key": null,
+      "description": "The INPUT_REQUEST and INPUT_SESSION source for\n     filter_input etc. have been removed. These were never implemented and their\n     use always generated a warning.",
+      "related": "Filter"
+    },
+    {
+      "key": null,
+      "description": "The deprecated functions png2wbmp and jpeg2wbmp have\n     been removed.",
+      "related": "GD"
+    },
+    {
+      "key": null,
+      "description": "The default mode parameter of imagecropauto no longer\n     accepts -1. IMG_CROP_DEFAULT should be used instead.",
+      "related": "GD"
+    },
+    {
+      "key": null,
+      "description": "On Windows, php_gd2.dll has been renamed to php_gd.dll.",
+      "related": "GD"
+    },
+    {
+      "key": null,
+      "description": "iconv implementations which do not properly set errno in case of errors are no\n   longer supported.",
+      "related": "Iconv"
+    },
+    {
+      "key": null,
+      "description": "The deprecated functions ldap_sort,\n     ldap_control_paged_result and\n     ldap_control_paged_result_response have been removed.",
+      "related": "LDAP"
+    },
+    {
+      "key": null,
+      "description": "The interface of ldap_set_rebind_proc has changed; the\n     callback parameter does not accept empty strings anymore;  should be\n     used instead.",
+      "related": "LDAP"
+    },
+    {
+      "key": null,
+      "description": "The mbstring.func_overload directive has been\n     removed. The related MB_OVERLOAD_MAIL,\n     MB_OVERLOAD_STRING, and MB_OVERLOAD_REGEX constants\n     have also been removed. Finally, the \"func_overload\" and\n     \"func_overload_list\" entries in mb_get_info have been\n     removed.",
+      "related": "MBString"
+    },
+    {
+      "key": null,
+      "description": "mb_parse_str can no longer be used without specifying a result array.",
+      "related": "MBString"
+    },
+    {
+      "key": null,
+      "description": "A number of deprecated mbregex aliases have been removed. See the following\n     list for which functions should be used instead:",
+      "related": "MBString"
+    },
+    {
+      "key": null,
+      "description": "mbregex_encoding → mb_regex_encoding\n      mbereg → mb_ereg\n      mberegi → mb_eregi\n      mbereg_replace → mb_ereg_replace\n      mberegi_replace → mb_eregi_replace\n      mbsplit → mb_split\n      mbereg_match → mb_ereg_match\n      mbereg_search → mb_ereg_search\n      mbereg_search_pos → mb_ereg_search_pos\n      mbereg_search_regs → mb_ereg_search_regs\n      mbereg_search_init → mb_ereg_search_init\n      mbereg_search_getregs → mb_ereg_search_getregs\n      mbereg_search_getpos → mb_ereg_search_getpos\n      mbereg_search_setpos → mb_ereg_search_setpos",
+      "related": "MBString"
+    },
+    {
+      "key": null,
+      "description": "The needle argument for mb_strpos,\n     mb_strrpos, mb_stripos,\n     mb_strripos, mb_strstr,\n     mb_stristr, mb_strrchr and\n     mb_strrichr can now be empty.",
+      "related": "MBString"
+    },
+    {
+      "key": null,
+      "description": "The ISO_8859-* character encoding aliases have been replaced by\n     ISO8859-* aliases for better interoperability with the iconv extension. The\n     mbregex ISO 8859 aliases with underscores (ISO_8859_* and\n     ISO8859_*) have also been removed.",
+      "related": "MBString"
+    },
+    {
+      "key": null,
+      "description": "Several alias functions have been marked as deprecated.",
+      "related": "OCI8"
+    },
+    {
+      "key": null,
+      "description": "oci_internal_debug and its alias ociinternaldebug have\n     been removed.",
+      "related": "OCI8"
+    },
+    {
+      "key": null,
+      "description": "odbc_connect no longer reuses connections.",
+      "related": "ODBC"
+    },
+    {
+      "key": null,
+      "description": "The unused flags parameter of odbc_exec has been\n     removed.",
+      "related": "ODBC"
+    },
+    {
+      "key": null,
+      "description": "openssl_seal and openssl_open now require\n     method to be passed, as the previous default of \"RC4\"\n     is considered insecure.",
+      "related": "OpenSSL"
+    },
+    {
+      "key": null,
+      "description": "The default error handling mode has been changed from \"silent\" to \"exceptions\". See\n     Errors and error handling for details.",
+      "related": "PHP Data Objects"
+    },
+    {
+      "key": null,
+      "description": "The signatures of some PDO methods have changed:",
+      "related": "PHP Data Objects"
+    },
+    {
+      "key": null,
+      "description": "PDO::query(string $query, ?int $fetchMode  = null, mixed  ...$fetchModeArgs)\n      PDOStatement::setFetchMode(int $mode, mixed ...$args)",
+      "related": "PHP Data Objects"
+    },
+    {
+      "key": null,
+      "description": "The  directive\n   pdo_odbc.db2_instance_name has been\n   removed.",
+      "related": "PDO ODBC"
+    },
+    {
+      "key": null,
+      "description": "PDO::inTransaction now reports the actual transaction state of\n   the connection, rather than an approximation maintained by PDO. If a query that is\n   subject to \"implicit commit\" is executed, PDO::inTransaction\n   will subsequently return false, as a transaction is no longer active.",
+      "related": "PDO MySQL"
+    },
+    {
+      "key": null,
+      "description": "The deprecated pg_connect syntax using multiple parameters instead of a\n     connection string is no longer supported.",
+      "related": "PostgreSQL"
+    },
+    {
+      "key": null,
+      "description": "The deprecated pg_lo_import and pg_lo_export signature\n     that passes the connection as the last argument is no longer supported. The connection should be\n     passed as first argument instead.",
+      "related": "PostgreSQL"
+    },
+    {
+      "key": null,
+      "description": "Metadata associated with a phar will no longer be automatically unserialized, to fix potential\n   security vulnerabilities due to object instantiation, autoloading, etc.",
+      "related": "Phar"
+    },
+    {
+      "key": null,
+      "description": "The method signatures",
+      "related": "Reflection"
+    },
+    {
+      "key": null,
+      "description": "ReflectionClass::newInstance($args)\n      ReflectionFunction::invoke($args)\n      ReflectionMethod::invoke($object, $args)",
+      "related": "Reflection"
+    },
+    {
+      "key": null,
+      "description": "have been changed to:",
+      "related": "Reflection"
+    },
+    {
+      "key": null,
+      "description": "ReflectionClass::newInstance(...$args)\n      ReflectionFunction::invoke(...$args)\n      ReflectionMethod::invoke($object, ...$args)",
+      "related": "Reflection"
+    },
+    {
+      "key": null,
+      "description": "Code that must be compatible with both PHP 7 and PHP 8 can use the following\n     signatures to be compatible with both versions:",
+      "related": "Reflection"
+    },
+    {
+      "key": null,
+      "description": "ReflectionClass::newInstance($arg = null, ...$args)\n      ReflectionFunction::invoke($arg = null, ...$args)\n      ReflectionMethod::invoke($object, $arg = null, ...$args)",
+      "related": "Reflection"
+    },
+    {
+      "key": null,
+      "description": "Reflection export() methods have been removed.\n     Instead reflection objects can be cast to string.",
+      "related": "Reflection"
+    },
+    {
+      "key": null,
+      "description": "ReflectionType::isBuiltin method has been moved to\n     ReflectionNamedType. ReflectionUnionType does not\n     have it.",
+      "related": "Reflection"
+    },
+    {
+      "key": null,
+      "description": "The deprecated AI_IDN_ALLOW_UNASSIGNED and\n     AI_IDN_USE_STD3_ASCII_RULES flags for\n     socket_addrinfo_lookup have been removed.",
+      "related": "Sockets"
+    },
+    {
+      "key": null,
+      "description": "SplDoublyLinkedList::push,\n     SplDoublyLinkedList::unshift and\n     SplQueue::enqueue now return void instead of true.",
+      "related": "Standard PHP Library (SPL)"
+    },
+    {
+      "key": null,
+      "description": "assert will no longer evaluate string arguments, instead they will be\n     treated like any other argument. assert($a == $b) should be used instead of\n     assert('$a == $b'). The assert.quiet_eval ini directive and the\n     ASSERT_QUIET_EVAL constant have also been removed, as they would no longer\n     have any effect.",
+      "related": "Standard Library"
+    },
+    {
+      "key": null,
+      "description": "parse_str can no longer be used without specifying a result array.",
+      "related": "Standard Library"
+    },
+    {
+      "key": null,
+      "description": "The needle argument for strpos,\n     strrpos, stripos, strripos,\n     strstr, stristr and strrchr can\n     now be empty.",
+      "related": "Standard Library"
+    },
+    {
+      "key": null,
+      "description": "The length argument for substr,\n     substr_count, substr_compare, and\n     iconv_substr can now be .  values will behave as if no length\n     argument was provided and will therefore return the remainder of the string instead of an empty\n     string.",
+      "related": "Standard Library"
+    },
+    {
+      "key": null,
+      "description": "The length argument for array_splice can now be\n     .  values will behave identically to omitting the argument, thus removing everything\n     from the offset to the end of the array.",
+      "related": "Standard Library"
+    },
+    {
+      "key": null,
+      "description": "The 'salt' option of password_hash is no longer\n     supported. If the 'salt' option is used a warning is generated, the provided\n     salt is ignored, and a generated salt is used instead.",
+      "related": "Standard Library"
+    },
+    {
+      "key": null,
+      "description": "The following functions have been removed:",
+      "related": "Standard Library"
+    },
+    {
+      "key": null,
+      "description": "hebrevc\n      convert_cyr_string\n      money_format\n      ezmlm_hash\n      restore_include_path\n      get_magic_quotes_gpc\n      get_magic_quotes_runtime\n      fgetss",
+      "related": "Standard Library"
+    },
+    {
+      "key": null,
+      "description": "Calling implode with parameters in a reverse order ($pieces,\n     $glue) is no longer supported.",
+      "related": "Standard Library"
+    },
+    {
+      "key": null,
+      "description": "The result of sorting functions may have changed, if the array contains elements that compare as\n     equal.",
+      "related": "Standard Library"
+    },
+    {
+      "key": null,
+      "description": "The HTTP stream wrapper as used by functions like file_get_contents\n     now advertises HTTP/1.1 rather than HTTP/1.0 by default. This does not change the behavior of the\n     client, but may cause servers to respond differently. To retain the old behavior, set the\n     'protocol_version' stream context option, e.g.",
+      "related": "Standard Library"
+    },
+    {
+      "key": null,
+      "description": "<?php\n$ctx = stream_context_create(['http' => ['protocol_version' => '1.0']]);\necho file_get_contents('http://example.org', false, $ctx);\n?>",
+      "related": "Standard Library"
+    },
+    {
+      "key": null,
+      "description": "Calling crypt without an explicit salt is no longer supported. If you would\n     like to produce a strong hash with an auto-generated salt, use\n     password_hash instead.",
+      "related": "Standard Library"
+    },
+    {
+      "key": null,
+      "description": "On Windows, the program execution functions (proc_open, exec,\n     popen etc.) using the shell, now consistently execute %comspec% /s\n     /c \"$commandline\", which has the same effect as executing\n     $commandline (without additional quotes).",
+      "related": "Standard Library"
+    },
+    {
+      "key": null,
+      "description": "The auto_release parameter of sem_get was changed to\n     accept bool values rather than int.",
+      "related": "Sysvsem"
+    },
+    {
+      "key": null,
+      "description": "The use_include_path parameter, which was not used internally, has been\n     removed from tidy_repair_string.",
+      "related": "Tidy"
+    },
+    {
+      "key": null,
+      "description": "tidy::repairString and tidy::repairFile became\n     static methods.",
+      "related": "Tidy"
+    },
+    {
+      "key": null,
+      "description": "T_COMMENT tokens will no longer include a trailing newline. The newline will\n     instead be part of a following T_WHITESPACE token. It should be noted that\n     T_COMMENT is not always followed by whitespace, it may also be followed by\n     T_CLOSE_TAG or end-of-file.",
+      "related": "Tokenizer"
+    },
+    {
+      "key": null,
+      "description": "Namespaced names are now represented using the T_NAME_QUALIFIED\n     (Foo\\Bar), T_NAME_FULLY_QUALIFIED (\\Foo\\Bar) and\n     T_NAME_RELATIVE (namespace\\Foo\\Bar) tokens.\n     T_NS_SEPARATOR is only used for standalone namespace separators, and only\n     syntactially valid in conjunction with group use declarations.",
+      "related": "Tokenizer"
+    },
+    {
+      "key": null,
+      "description": "XMLReader::open and XMLReader::XML are now\n   static methods. They can still be called as instance methods, but inheriting classes need to declare them\n   as static if they override these methods.",
+      "related": "XMLReader"
+    },
+    {
+      "key": null,
+      "description": "The XML-RPC extension has been moved to PECL and is no longer part of the PHP\n   distribution.",
+      "related": "XML-RPC"
+    },
+    {
+      "key": null,
+      "description": "zlib.output_compression is no longer\n     automatically disabled for Content-Type: image/*.",
+      "related": "Zlib"
+    },
+    {
+      "key": null,
+      "description": "The test runner has been renamed from run-test.php to\n   run-tests.php, to match its name in php-src.",
+      "related": "Windows PHP Test Packs"
+    }
+  ]
+}

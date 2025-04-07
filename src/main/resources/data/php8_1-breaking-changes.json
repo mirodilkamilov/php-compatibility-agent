@@ -1,0 +1,201 @@
+{
+  "reserved_keywords": [
+    {
+      "key": "never",
+      "description": "never is now a reserved word, so it cannot be used to name a class,\n    interface or trait, and is also prohibited from being used in namespaces.",
+      "related": "PHP Core"
+    }
+  ],
+  "removed_functions": [],
+  "behavior_changes": [
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "Access to the $GLOBALS array is now subject to\n    a number of restrictions.\n    Read and write access to individual array elements like\n    $GLOBALS['var'] continues to work as-is.\n    Read-only access to the entire $GLOBALS array also\n    continues to be supported.\n    However, write access to the entire $GLOBALS array\n    is no longer supported. For example, array_pop($GLOBALS)\n    will result in an error.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "When a method using static variables is inherited (but not overridden), the\n    inherited method will now share static variables with the parent method.\n    \n     \n\n<?php\nclass A {\n    public static function counter() {\n        static $counter = 0;\n        $counter++;\n        return $counter;\n    }\n}\nclass B extends A {}\nvar_dump(A::counter()); // int(1)\nvar_dump(A::counter()); // int(2)\nvar_dump(B::counter()); // int(3), previously int(1)\nvar_dump(B::counter()); // int(4), previously int(2)\n?>\n\n     \n    \n\n    This means that static variables in methods now behave the same way as\n    static properties.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "An optional parameter\n    specified before required parameters is now always treated as required,\n    even when called using\n    named arguments.\n    As of PHP 8.0.0, but prior to PHP 8.1.0, the below emits a deprecation notice\n    on the definition, but runs successfully when called. As of PHP 8.1.0, an error\n    of class ArgumentCountError is thrown, as it would be when\n    called with positional arguments.\n\n    \n     \n\n<?php\nfunction makeyogurt($container = \"bowl\", $flavour)\n{\n    return \"Making a $container of $flavour yogurt.\\n\";\n}\ntry\n{\n    echo makeyogurt(flavour: \"raspberry\");\n}\ncatch (Error $e)\n{\n    echo get_class($e), ' - ', $e->getMessage(), \"\\n\";\n}\n?>\n\n     \n     \n     \n\nDeprecated: Required parameter $flavour follows optional parameter $container\n in example.php on line 3\nMaking a bowl of raspberry yogurt.\n\n     \n     \n     \n\nDeprecated: Optional parameter $container declared before required parameter\n $flavour is implicitly treated as a required parameter in example.php on line 3\nArgumentCountError - makeyogurt(): Argument #1 ($container) not passed",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "mysqli_fetch_fields, and\n   mysqli_fetch_field_direct will now always return\n   0 for the max_length.\n   This information can be computed by iterating over the result set,\n   and taking the maximum length. This is what PHP was doing\n   internally previously.",
+      "related": "MySQLi"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "EC private keys will now be exported in PKCS#8 format rather than\n   traditional format, just like all other keys.",
+      "related": "OpenSSL"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "openssl_pkcs7_encrypt and\n   openssl_cms_encrypt will now to default using\n   AES-128-CBC rather than RC2-40. The RC2-40 cipher is considered\n   insecure and not enabled by default by OpenSSL 3.",
+      "related": "OpenSSL"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "PDO::ATTR_STRINGIFY_FETCHES now stringifies values\n   of type  to \"0\" or\n   \"1\". Previously s were not stringified.",
+      "related": "PHP Data Objects"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "Calling PDOStatement::bindColumn with\n   PDO::PARAM_LOB will now constantly bind a stream\n   result when PDO::ATTR_STRINGIFY_FETCHES is not enabled.\n   Previously, the result would either be a stream or a string depending on\n   the used database driver and the time the binding is performed.",
+      "related": "PHP Data Objects"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "Integers and floats in result sets will now be returned using native\n    PHP types instead of s when using emulated prepared statements.\n    This matches the behavior of native prepared statements.\n    The previous behaviour can be restored by enabling the\n    PDO::ATTR_STRINGIFY_FETCHES option.",
+      "related": "PHP Data Objects"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "Integers and floats in results sets will now be returned using native\n    PHP types.\n    The previous behaviour can be restored by enabling the\n    PDO::ATTR_STRINGIFY_FETCHES option.",
+      "related": "PHP Data Objects"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "htmlspecialchars,\n   htmlentities,\n   htmlspecialchars_decode,\n   html_entity_decode,\n   and get_html_translation_table\n   now use ENT_QUOTES | ENT_SUBSTITUTE rather than\n   ENT_COMPAT by default.\n   This means that ' is escaped to\n   #039; while previously nothing was done.\n   Additionally, malformed UTF-8 will be replaced by a Unicode substitution\n   character, instead of resulting in an empty string.",
+      "related": "Standard"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "SplFixedArray, will now be JSON encoded like an",
+      "related": "Standard PHP Library (SPL)"
+    }
+  ],
+  "removed_syntax": [
+    {
+      "key": "unknown",
+      "description": "The mysqlnd.fetch_data_copy\n   INI directive has been removed.\n   This should not result in user-visible behavior changes.",
+      "related": "MySQLnd"
+    }
+  ],
+  "others": [
+    {
+      "key": null,
+      "description": "Note that a default value of  can be used before required parameters to\n    specify a nullable type,\n    but the parameter will still be required.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "Most non-final internal methods now require overriding methods to declare\n    a compatible return type, otherwise a deprecated notice is emitted during\n    inheritance validation.\n    In case the return type cannot be declared for an overriding method due to\n    PHP cross-version compatibility concerns,\n    a ReturnTypeWillChange attribute can be added to silence\n    the deprecation notice.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "readonly is a keyword now. However, it still may be used\n    as function name.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "Several s have been migrated to s.\n   Return value checks using is_resource should be replaced with checks for false.",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": null,
+      "description": "The FileInfo functions now accept and return\n     finfo objects instead of\n     fileinfo s.",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": null,
+      "description": "The FTP functions now accept and return\n     FTP\\Connection objects instead of\n     ftp s.",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": null,
+      "description": "The IMAP functions now accept and return\n     IMAP\\Connection objects instead of\n     imap s.",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": null,
+      "description": "The LDAP functions now accept and return\n     LDAP\\Connection objects instead of\n     ldap link s.",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": null,
+      "description": "The LDAP functions now accept and return\n     LDAP\\Result objects instead of\n     ldap result s.",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": null,
+      "description": "The LDAP functions now accept and return\n     LDAP\\ResultEntry objects instead of\n     ldap result entry s.",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": null,
+      "description": "The PgSQL functions now accept and return\n     PgSql\\Connection objects instead of\n     pgsql link s.",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": null,
+      "description": "The PgSQL functions now accept and return\n     PgSql\\Result objects instead of\n     pgsql result s.",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": null,
+      "description": "The PgSQL functions now accept and return\n     PgSql\\Lob objects instead of\n     pgsql large object s.",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": null,
+      "description": "The PSpell functions now accept and return\n     PSpell\\Dictionary objects instead of\n     pspell s.",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": null,
+      "description": "The PSpell functions now accept and return\n     PSpell\\Config objects instead of\n     pspell config s.",
+      "related": "Resource to Object Migration"
+    },
+    {
+      "key": null,
+      "description": "The MYSQLI_STMT_ATTR_UPDATE_MAX_LENGTH\n   option no longer has any effect.",
+      "related": "MySQLi"
+    },
+    {
+      "key": null,
+      "description": "The MYSQLI_STORE_RESULT_COPY_DATA\n   option no longer has any effect. Passing any value to the\n   mode parameter of\n   mysqli::store_result no longer has any effect.",
+      "related": "MySQLi"
+    },
+    {
+      "key": null,
+      "description": "mysqli::connect now returns true instead of  on success.",
+      "related": "MySQLi"
+    },
+    {
+      "key": null,
+      "description": "The default error handling mode has been changed from \"silent\" to \"exceptions\"\n   See the MySQLi reporting mode\n   page for more details on what this entails,\n   and how to explicitly set this attribute.\n   To restore the previous behaviour use:\n   mysqli_report(MYSQLI_REPORT_OFF);",
+      "related": "MySQLi"
+    },
+    {
+      "key": null,
+      "description": "Classes extending mysqli_stmt::execute\n   are now required to specify the additional optional parameter.",
+      "related": "MySQLi"
+    },
+    {
+      "key": null,
+      "description": "To comply with the ArrayAccess interface,\n   Phar::offsetUnset and\n   PharData::offsetUnset no longer return a .",
+      "related": "Phar"
+    },
+    {
+      "key": null,
+      "description": "version_compare no longer accepts undocumented operator abbreviations.",
+      "related": "Standard"
+    },
+    {
+      "key": null,
+      "description": "debug_zval_dump now prints the refcount of a reference\n   wrappers with their refcount, instead of only prepending\n    to the value.\n   This more accurately models reference representation since PHP 7.0.",
+      "related": "Standard"
+    },
+    {
+      "key": null,
+      "description": "debug_zval_dump now prints interned\n   instead of a dummy refcount for interned strings and immutable arrays.",
+      "related": "Standard"
+    }
+  ]
+}

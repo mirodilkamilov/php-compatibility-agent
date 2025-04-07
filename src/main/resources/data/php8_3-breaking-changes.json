@@ -1,0 +1,109 @@
+{
+  "reserved_keywords": [],
+  "removed_functions": [],
+  "behavior_changes": [
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "Executing proc_get_status multiple times will now always\n    return the right value on POSIX systems. Previously, only the first call\n    of the function returned the right value. Executing\n    proc_close after proc_get_status\n    will now also return the right exit code. Previously this would return\n    -1.\n    Internally, this works by caching the result on POSIX systems.\n    If the previous behaviour is required, it is possible to check the\n    \"cached\" key in the array returned by\n    proc_get_status to check whether the result was cached.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "Zend Max Execution Timers is now enabled by default for ZTS builds on\n    Linux.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "Uses of traits with static properties will now redeclare static properties\n    inherited from the parent class. This will create a separate static\n    property storage for the current class. This is analogous to adding the\n    static property to the class directly without traits.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "Assigning a negative index $n to an empty array will now make sure that the\n    next index is $n+1 instead of 0.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "Class constant visibility variance is now correctly checked when inherited\n    from interfaces.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "WeakMap entries whose key maps to itself (possibly\n    transitively) may now be removed during cycle collection if the key is not\n    reachable except by iterating over the WeakMap (reachability via iteration is\n    considered weak).\n    Previously, such entries would never be automatically removed.",
+      "related": "PHP Core"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "Calling DOMChildNode::after,\n   DOMChildNode::before,\n   DOMChildNode::replaceWith\n   on a node that has no parent is now a no-op instead of a hierarchy\n   exception, which is the behaviour demanded by the DOM specification.",
+      "related": "DOM"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "Calling DOMDocument::createAttributeNS without specifying\n   a prefix would incorrectly create a default namespace, placing the element\n   inside the namespace instead of the attribute. This bug is now fixed.",
+      "related": "DOM"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "DOMDocument::createAttributeNS would previously\n   incorrectly throw a DOM_NAMESPACE_ERRNAMESPACE_ERR\n   DOMException when the prefix was already used for a\n   different URI. It now correctly chooses a different prefix when there's a\n   prefix name conflict.",
+      "related": "DOM"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "The range function has had various changes:\n   \n    A TypeError is now thrown when passing objects,\n    resources, or arrays as the boundary inputs.\n    A more descriptive ValueError is thrown when\n    passing 0 for $step.\n    A ValueError is now thrown when using a\n    negative $step for increasing ranges.\n    If $step is a float that can be interpreted\n    as an int, it is now done so.\n    A ValueError is now thrown if any argument\n    is infinity or NAN.\n    An E_WARNING is now emitted if\n    $start or $end is the empty\n    string. The value continues to be cast to the value 0.\n    An E_WARNING is now emitted if\n    $start or $end has more than\n    one byte, only if it is a non-numeric string.\n    An E_WARNING is now emitted if\n    $start or $end is cast to an\n    integer because the other boundary input is a number.\n    (e.g. range(5, 'z');).\n    An E_WARNING is now emitted if\n    $step is a float when trying to generate a range of\n    characters, except if both boundary inputs are numeric strings (e.g.\n    range('5', '9', 0.5); does not produce a warning).\n    range now produce a list of characters if one\n    of the boundary inputs is a string digit instead of casting the other input\n    to int (e.g. range('9', 'A');).\n   \n\n   \n    \n\n<?php\nrange('9', 'A');  // [\"9\", \":\", \";\", \"<\", \"=\", \">\", \"?\", \"@\", \"A\"], as of PHP 8.3.0\nrange('9', 'A');  // [9, 8, 7, 6, 5, 4, 3, 2, 1, 0], prior to PHP 8.3.0\n?>",
+      "related": "Standard"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "number_format now handles negative\n   $decimals values by rounding\n   $num to abs($decimals) digits before the\n   decimal point. Previously, negative $decimals values\n   were ignored.",
+      "related": "Standard"
+    },
+    {
+      "key": "DEFINE_MANUALLY",
+      "description": "The file flags error check now catches all invalid flags.\n   Notably FILE_APPEND was previously silently accepted.",
+      "related": "Standard"
+    }
+  ],
+  "removed_syntax": [],
+  "others": [
+    {
+      "key": null,
+      "description": "Programs that were very close to overflowing the call stack may now throw an\n    Error when using more than\n    zend.max_allowed_stack_size-zend.reserved_stack_size bytes of stack\n    (fiber.stack_size-zend.reserved_stack_size for fibers).",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "The DateTime extension has introduced Date extension specific exceptions\n   and errors under the DateError and\n   DateException hierarchies, instead of warnings and\n   generic exceptions. This improves error handling, at the expense\n   of having to check for errors and exceptions.",
+      "related": "Date"
+    },
+    {
+      "key": null,
+      "description": "Using the DOMParentNode\n   and DOMChildNode methods without a document now\n   works instead of throwing a DOM_HIERARCHY_REQUEST_ERR\n   DOMException.\n   This is in line with the behaviour demanded by the DOM specification.",
+      "related": "DOM"
+    },
+    {
+      "key": null,
+      "description": "New methods and properties were added to some DOM classes.\n   If a userland class inherits from these classes and declare a method or property\n   with the same name, the declarations must be compatible. Otherwise, a typical\n   compile error about incompatible declarations will be thrown.\n   See the list of new features\n   and new functions for\n   a list of the newly implemented methods and properties.",
+      "related": "DOM"
+    },
+    {
+      "key": null,
+      "description": "C functions that have a return type of void now return  instead of\n   returning the following object object(FFI\\CData:void) { }",
+      "related": "FFI"
+    },
+    {
+      "key": null,
+      "description": "The opcache.consistency_checks\n   INI directive was removed. This feature was broken with the tracing JIT,\n   as well as with inheritance cache, and has been disabled without a way to\n   enable it since PHP 8.1.18 and PHP 8.2.5.\n   Both the tracing JIT and inheritance cache may modify shm after the script\n   has been persisted by invalidating its checksum. The attempted fix skipped\n   over the modifiable pointers but was rejected due to complexity. For this\n   reason, it was decided to remove the feature instead.",
+      "related": "Opcache"
+    },
+    {
+      "key": null,
+      "description": "The type of Phar class constants are now declared.",
+      "related": "Phar"
+    },
+    {
+      "key": null,
+      "description": "The type of SNMP class constants are now declared.",
+      "related": "SNMP"
+    }
+  ]
+}

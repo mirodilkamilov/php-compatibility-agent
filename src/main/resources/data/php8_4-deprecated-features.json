@@ -1,0 +1,31 @@
+{
+  "deprecated_function": [],
+  "removed_syntax": [],
+  "others": [
+    {
+      "key": null,
+      "description": "The following code:\n    \n     \n\n<?php\nfunction foo(T1 $a = null) {}\n\n     \n    \n    should be converted to:\n    \n     \n\n<?php\nfunction foo(T1|null $a = null) {}\n\n     \n    \n    or\n    \n     \n\n<?php\nfunction foo(?T1 $a = null) {}",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "However, if such a parameter declaration is followed by a mandatory\n    parameter:\n    \n     \n\n<?php\nfunction foo(T1 $a, T2 $b = null, T3 $c) {}\n\n     \n    \n    It must be converted to:\n    \n     \n\n<?php\nfunction foo(T1 $a, T2|null $b, T3 $c) {}\n\n     \n    \n    or\n    \n     \n\n<?php\nfunction foo(T1 $a, ?T2 $b, T3 $c) {}\n\n     \n    \n    as optional parameter before required ones are deprecated.",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "Naming a class _ is now deprecated:\n    \n     \n\n<?php\nclass _ {}",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "Classes whose names start with an underscore are not\n     deprecated:\n     \n      \n\n<?php\nclass _MyClass {}",
+      "related": "PHP Core"
+    },
+    {
+      "key": null,
+      "description": "The following properties have been formally deprecated:\n   \n    DOMDocument::$actualEncoding\n    DOMDocument::$config\n    DOMEntity::$actualEncoding\n    DOMEntity::$encoding\n    DOMEntity::$version",
+      "related": "DOM"
+    }
+  ]
+}
