@@ -1,5 +1,5 @@
 {
-  "deprecated_function": [
+  "deprecated_functions": [
     {
       "key": "enchant_broker_set_dict_path",
       "description": "enchant_broker_set_dict_path and enchant_broker_get_dict_path are deprecated, because that functionality is neither available in libenchant < 1.5 nor in libenchant-2.",
@@ -61,6 +61,6 @@
       "related": "PGSQL/PDO PGSQL"
     }
   ],
-  "removed_syntax": [],
+  "removed_syntaxes": [],
   "others": []
 }

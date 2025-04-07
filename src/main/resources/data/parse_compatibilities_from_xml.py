@@ -13,8 +13,8 @@ The script will generate structured JSON files such as:
 These files will contain categorized information like reserved keywords, removed functions, behavior changes, etc.,
 and can be used for automated PHP code compatibility analysis.
 """
-import os
 import json
+import os
 import re
 from lxml import etree as ET
 
@@ -174,12 +174,12 @@ for dirname in sorted(os.listdir(APPENDICES_DIR)):
         "reserved_keywords": [],
         "removed_functions": [],
         "behavior_changes": [],
-        "removed_syntax": [],
+        "removed_syntaxes": [],
         "others": []
     }
     output_deprecated_features_data = {
-        "deprecated_function": [],
-        "removed_syntax": [],
+        "deprecated_functions": [],
+        "removed_syntaxes": [],
         "others": []
     }
     for xml_file in ["incompatible.xml", "deprecated.xml"]:

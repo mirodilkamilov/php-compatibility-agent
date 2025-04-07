@@ -3,13 +3,12 @@ package dev.mirodil.serializers;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.mirodil.models.*;
+import dev.mirodil.utils.DataUtil;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class BreakingChangesSerializer {
 
@@ -20,12 +19,12 @@ public class BreakingChangesSerializer {
         try {
             File file = new File(filePath);
             JsonNode root = mapper.readTree(file);
-            PhpVersion phpTargetVersion = extractPhpVersionFromFileName(file.getName());
+            PhpVersion phpTargetVersion = DataUtil.extractPhpVersionFromFileName(file.getName());
 
             breakingChanges.addAll(parseReservedKeywords(root.get("reserved_keywords"), phpTargetVersion));
             breakingChanges.addAll(parseRemovedFunctions(root.get("removed_functions"), phpTargetVersion));
             breakingChanges.addAll(parseBehaviorChanges(root.get("behavior_changes"), phpTargetVersion));
-            // TODO: parse removed_syntax and others
+            // TODO: parse removed_syntaxes and others
         } catch (IOException e) {
             System.err.println("Failed to load breaking changes: " + e.getMessage());
             throw e;
@@ -75,7 +74,7 @@ public class BreakingChangesSerializer {
             String description = node.path("description").asText();
             String related = node.path("related").asText();
 
-            String className = toPascalCase(key) + "Rule"; // e.g., "assertion_behaviour_change" -> "AssertionBehaviourChangeRule"
+            String className = DataUtil.toPascalCase(key) + "Rule"; // e.g., "assertion_behaviour_change" -> "AssertionBehaviourChangeRule"
             String fullClassName = "dev.mirodil.models.rules." + className;
 
             try {
@@ -92,29 +91,4 @@ public class BreakingChangesSerializer {
 
         return list;
     }
-
-    private static PhpVersion extractPhpVersionFromFileName(String fileName) {
-        String versionPattern = "php_(\\d+)_(\\d+)-"; // Regex to capture version numbers
-
-        Pattern pattern = Pattern.compile(versionPattern);
-        Matcher matcher = pattern.matcher(fileName);
-
-        if (matcher.find()) {
-            String major = matcher.group(1);
-            String minor = matcher.group(2);
-            return PhpVersion.fromString(major + "." + minor).orElseThrow();
-        }
-
-        throw new IllegalArgumentException("Cannot extract php version from file name: " + fileName);
-    }
-
-    private static String toPascalCase(String snakeCase) {
-        String[] parts = snakeCase.split("_");
-        StringBuilder sb = new StringBuilder();
-        for (String part : parts) {
-            sb.append(part.substring(0, 1).toUpperCase()).append(part.substring(1));
-        }
-        return sb.toString();
-    }
-
 }
