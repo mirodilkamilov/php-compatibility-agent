@@ -39,7 +39,19 @@ def version_from_dirname(dirname: str) -> str:
 
 
 def get_text(elem):
-    return ''.join(elem.itertext()).strip()
+    if elem.tag == "programlisting":
+        return (elem.text or "").strip()
+
+    parts = []
+    for text in elem.itertext():
+        parts.append(text.strip())
+
+    combined = ' '.join(parts).strip()
+
+    # Remove unnecessary spaces before punctuation
+    combined = re.sub(r'\s+([.,;:!?])', r'\1', combined)
+
+    return combined
 
 
 def get_section_title_text(para_elem):

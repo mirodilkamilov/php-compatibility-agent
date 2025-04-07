@@ -1,112 +1,66 @@
 {
   "deprecated_function": [
     {
-      "key": "get_defined_functions",
-      "description": "Calling get_defined_functions with exclude_disabled\n     explicitly set to false is deprecated and no longer has an effect.\n     get_defined_functions will never include disabled functions.",
-      "related": "PHP Core"
+      "key": "enchant_broker_set_dict_path",
+      "description": "enchant_broker_set_dict_path and enchant_broker_get_dict_path are deprecated, because that functionality is neither available in libenchant < 1.5 nor in libenchant-2.",
+      "related": "Enchant"
     },
     {
-      "key": "enchant_broker_set_dict_path",
-      "description": "enchant_broker_set_dict_path and\n     enchant_broker_get_dict_path\n     are deprecated, because that functionality is neither available in libenchant < 1.5 nor in\n     libenchant-2.",
+      "key": "enchant_broker_get_dict_path",
+      "description": "enchant_broker_set_dict_path and enchant_broker_get_dict_path are deprecated, because that functionality is neither available in libenchant < 1.5 nor in libenchant-2.",
       "related": "Enchant"
     },
     {
       "key": "enchant_dict_add_to_personal",
-      "description": "enchant_dict_add_to_personal is deprecated; use\n     enchant_dict_add instead.",
+      "description": "enchant_dict_add_to_personal is deprecated; use enchant_dict_add instead.",
       "related": "Enchant"
     },
     {
       "key": "enchant_dict_is_in_session",
-      "description": "enchant_dict_is_in_session is deprecated; use\n     enchant_dict_is_added instead.",
+      "description": "enchant_dict_is_in_session is deprecated; use enchant_dict_is_added instead.",
       "related": "Enchant"
     },
     {
       "key": "enchant_broker_free",
-      "description": "enchant_broker_free and enchant_broker_free_dict are\n     deprecated; unset the object instead.",
+      "description": "enchant_broker_free and enchant_broker_free_dict are deprecated; unset the object instead.",
       "related": "Enchant"
     },
     {
       "key": "libxml_disable_entity_loader",
-      "description": "libxml_disable_entity_loader has been deprecated. As libxml 2.9.0 is now\n   required, external entity loading is guaranteed to be disabled by default, and this function is\n   no longer needed to protect against XXE attacks, unless the (still vulnerable)\n   LIBXML_NOENT is used.\n   In that case, it is recommended to refactor the code using\n   libxml_set_external_entity_loader to suppress loading of external entities.",
+      "description": "libxml_disable_entity_loader has been deprecated. As libxml 2.9.0 is now required, external entity loading is guaranteed to be disabled by default, and this function is no longer needed to protect against XXE attacks, unless the (still vulnerable) LIBXML_NOENT is used. In that case, it is recommended to refactor the code using libxml_set_external_entity_loader to suppress loading of external entities.",
       "related": "LibXML"
+    },
+    {
+      "key": "pg_errormessage",
+      "description": "Function aliases in the pgsql extension have been deprecated. Use pg_last_error() instead.",
+      "related": "PGSQL/PDO PGSQL"
+    },
+    {
+      "key": "pg_numrows",
+      "description": "Function aliases in the pgsql extension have been deprecated. Use pg_num_rows() instead.",
+      "related": "PGSQL/PDO PGSQL"
+    },
+    {
+      "key": "pg_numfields",
+      "description": "Function aliases in the pgsql extension have been deprecated. Use pg_num_fields() instead.",
+      "related": "PGSQL/PDO PGSQL"
+    },
+    {
+      "key": "pg_fieldname",
+      "description": "Function aliases in the pgsql extension have been deprecated. Use pg_field_name() instead.",
+      "related": "PGSQL/PDO PGSQL"
+    },
+    {
+      "key": "pg_fieldtype",
+      "description": "Function aliases in the pgsql extension have been deprecated. Use pg_field_type() instead.",
+      "related": "PGSQL/PDO PGSQL"
+    },
+    {
+      "key": "pg_result",
+      "description": "Function aliases in the pgsql extension have been deprecated. Use pg_fetch_result() instead.",
+      "related": "PGSQL/PDO PGSQL"
     }
   ],
   "removed_syntax": [],
-  "others": [
-    {
-      "key": null,
-      "description": "If a parameter with a default value is followed by a required parameter, the default value has\n     no effect. This is deprecated as of PHP 8.0.0 and can generally be resolved by dropping the\n     default value, without a change in functionality:",
-      "related": "PHP Core"
-    },
-    {
-      "key": null,
-      "description": "<?php\nfunction test($a = [], $b) {} // Before\nfunction test($a, $b) {}      // After\n?>",
-      "related": "PHP Core"
-    },
-    {
-      "key": null,
-      "description": "One exception to this rule are parameters of the form Type $param = null, where\n     the null default makes the type implicitly nullable. This usage remains allowed, but it is\n     recommended to use an explicit nullable type instead:",
-      "related": "PHP Core"
-    },
-    {
-      "key": null,
-      "description": "<?php\nfunction test(A $a = null, $b) {} // Still allowed\nfunction test(?A $a, $b) {}       // Recommended\n?>",
-      "related": "PHP Core"
-    },
-    {
-      "key": null,
-      "description": "The ENCHANT_MYSPELL and ENCHANT_ISPELL constants are\n     deprecated.",
-      "related": "Enchant"
-    },
-    {
-      "key": null,
-      "description": "The constant PGSQL_LIBPQ_VERSION_STR now has the same value as\n     PGSQL_LIBPQ_VERSION, and thus is deprecated.",
-      "related": "PGSQL / PDO PGSQL"
-    },
-    {
-      "key": null,
-      "description": "Function aliases in the pgsql extension have been deprecated.\n     See the following list for which functions should be used instead:",
-      "related": "PGSQL / PDO PGSQL"
-    },
-    {
-      "key": null,
-      "description": "pg_errormessage → pg_last_error\n      pg_numrows → pg_num_rows\n      pg_numfields → pg_num_fields\n      pg_cmdtuples → pg_affected_rows\n      pg_fieldname → pg_field_name\n      pg_fieldsize → pg_field_size\n      pg_fieldtype → pg_field_type\n      pg_fieldnum → pg_field_num\n      pg_result → pg_fetch_result\n      pg_fieldprtlen → pg_field_prtlen\n      pg_fieldisnull → pg_field_is_null\n      pg_freeresult → pg_free_result\n      pg_getlastoid → pg_last_oid\n      pg_locreate → pg_lo_create\n      pg_lounlink → pg_lo_unlink\n      pg_loopen → pg_lo_open\n      pg_loclose → pg_lo_close\n      pg_loread → pg_lo_read\n      pg_lowrite → pg_lo_write\n      pg_loreadall → pg_lo_read_all\n      pg_loimport → pg_lo_import\n      pg_loexport → pg_lo_export\n      pg_setclientencoding → pg_set_client_encoding\n      pg_clientencoding -> pg_client_encoding",
-      "related": "PGSQL / PDO PGSQL"
-    },
-    {
-      "key": null,
-      "description": "Sort comparison functions that return true or false will now throw a deprecation warning, and\n     should be replaced with an implementation that returns an integer less than, equal to, or greater\n     than zero.",
-      "related": "Standard Library"
-    },
-    {
-      "key": null,
-      "description": "<?php\n// Replace\nusort($array, fn($a, $b) => $a > $b);\n// With\nusort($array, fn($a, $b) => $a <=> $b);\n?>",
-      "related": "Standard Library"
-    },
-    {
-      "key": null,
-      "description": "Using an empty file as ZipArchive is deprecated. Libzip 1.6.0 does not accept empty files as\n     valid zip archives any longer. The existing workaround will be removed in the next version.",
-      "related": "Zip"
-    },
-    {
-      "key": null,
-      "description": "The procedural API of Zip is deprecated. Use ZipArchive instead.\n     Iteration over all entries can be accomplished using ZipArchive::statIndex\n     and a for loop:",
-      "related": "Zip"
-    },
-    {
-      "key": null,
-      "description": "<?php\n// iterate using the procedural API\nassert(is_resource($zip));\nwhile ($entry = zip_read($zip)) {\n    echo zip_entry_name($entry);\n}\n\n// iterate using the object-oriented API\nassert($zip instanceof ZipArchive);\nfor ($i = 0; $entry = $zip->statIndex($i); $i++) {\n    echo $entry['name'];\n}\n?>",
-      "related": "Zip"
-    },
-    {
-      "key": null,
-      "description": "ReflectionFunction::isDisabled is deprecated, as it is no longer\n     possible to create a ReflectionFunction for a disabled function. This\n     method now always returns false.",
-      "related": "Reflection"
-    },
-    {
-      "key": null,
-      "description": "ReflectionParameter::getClass,\n     ReflectionParameter::isArray, and\n     ReflectionParameter::isCallable are deprecated.\n     ReflectionParameter::getType and the\n     ReflectionType APIs should be used instead.",
-      "related": "Reflection"
-    }
-  ]
+  "others": []
 }
