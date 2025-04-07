@@ -7,8 +7,8 @@ Visit https://github.com/php/doc-en/tree/master/appendices to download the offic
 Place the extracted migration folders (e.g., migration80, migration81, ...) under the 'appendices' directory.
 
 The script will generate structured JSON files such as:
-- php8_0-breaking-changes.json
-- php8_0-deprecated-features.json
+- php_8_0-breaking-changes.json
+- php_8_0-deprecated-features.json
 
 These files will contain categorized information like reserved keywords, removed functions, behavior changes, etc.,
 and can be used for automated PHP code compatibility analysis.
@@ -35,7 +35,7 @@ def version_from_dirname(dirname: str) -> str:
     else:
         raise ValueError(f"Invalid version format in dirname: {dirname}")
 
-    return f"php{major}_{minor}"
+    return f"php_{major}_{minor}"
 
 
 def get_text(elem):
