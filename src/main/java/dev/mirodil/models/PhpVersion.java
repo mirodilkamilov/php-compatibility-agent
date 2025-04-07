@@ -2,6 +2,7 @@ package dev.mirodil.models;
 
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public enum PhpVersion {
     PHP_8_0("8.0"),
@@ -14,14 +15,20 @@ public enum PhpVersion {
         this.versionString = versionString;
     }
 
-    public String getVersionString() {
-        return versionString;
-    }
-
     public static Optional<PhpVersion> fromString(String version) {
         return Arrays.stream(values())
                 .filter(v -> v.versionString.equals(version))
                 .findFirst();
+    }
+
+    public static String supportedPhpVersions() {
+        return Arrays.stream(values())
+                .map(PhpVersion::getVersionString)
+                .collect(Collectors.joining(", "));
+    }
+
+    public String getVersionString() {
+        return versionString;
     }
 
     @Override
